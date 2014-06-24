@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tool xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://scape-project.eu/tool tool-1.1_draft.xsd" xmlns="http://scape-project.eu/tool" xmlns:xlink="http://www.w3.org/1999/xlink" name="FFMpeg" version="0.10" homepage="http://ffmpeg.org/" schemaVersion="1.1">
+    <installation>
+        <!-- from attribute @operatingSystemName or @otherOperatingSystemName we can generate a URI like "http://purl.org/DP/components#Debian" -->
+        <dependencies operatingSystemName="Redhat">
+            <dependency name="python">
+                <license type="FLOSS" name="LGPL-2.1" uri="http://opensource.org/licenses/LGPL-2.1"/>
+            </dependency>
+        </dependencies>
+    </installation>
+    <operations>
+        <operation name="fido">
+            <description>Tests filetype</description>
+         <command>python ./fido-master/fido/fido.py ${input}</command>
+	 
+            <inputs>
+                <input name="input" required="true">
+                    <format registryName="mimetype">application/nxs</format>
+                    <description>URL reference to input file</description>
+                </input>
+            </inputs>
+            <outputs>
+		<stdout>
+		</stdout>
+</outputs>
+        </operation>
+    </operations>
+</tool>

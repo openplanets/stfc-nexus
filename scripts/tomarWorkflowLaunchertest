@@ -1,0 +1,57 @@
+#!/bin/sh
+
+HOME=/home/local/ad43
+
+TAVERNA=${HOME}/taverna-commandline-2.4.0/executeworkflow.sh
+POST=Test
+
+HDFS_USER_DIR=/user/ad43
+
+INPUTDIR=hdfs://${HDFS_USER_DIR}/input
+JARFILE=${HOME}/tomar-1.4.1-SNAPSHOT-jar-with-dependencies.jar
+OUTPUTDIR=hdfs://${HDFS_USER_DIR}/output
+WORKFLOW=${HOME}/tomar-raw2nexus.t2flow
+LOCAL_RAW2NEXUS_INFILE=${HOME}/raw2nexusinput${POST}.txt
+LOCAL_FIDO_INFILE=${HOME}/fidoinput${POST}.txt
+LOCAL_CONVERT_INFILE=${HOME}/convertinput${POST}.txt
+LOCAL_VALIDATOR_INFILE=${HOME}/validatorinput${POST}.txt
+LOCAL_CHECKSUM_INFILE=${HOME}/checksuminput${POST}.txt
+FILES="hdfs://${HDFS_USER_DIR}/software/raw2nexus#raw2nexus,hdfs://${HDFS_USER_DIR}/software/nxconvert#nxconvert,hdfs://${HDFS_USER_DIR}/software/fido-master#fido-master,hdfs://${HDFS_USER_DIR}/software/checksum#checksum,hdfs://${HDFS_USER_DIR}/software/nexusSchematron.sch#nexusSchematron.sch,hdfs://${HDFS_USER_DIR}/software/probatron.jar#probatron.jar"
+SPLIT=1
+HADOOP_PROPERTIES="mapred.tasktracker.tasks.maximum=8"
+
+JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk.x86_64
+
+export JAVA_HOME=${JAVA_HOME}
+
+function timer()
+{
+    if [[ $# -eq 0 ]]; then
+        echo $(date '+%s')
+    else
+        local  stime=$1
+        etime=$(date '+%s')
+
+        if [[ -z "$stime" ]]; then stime=$etime; fi
+
+        dt=$((etime - stime))
+        ds=$((dt % 60))
+        dm=$(((dt / 60) % 60))
+        dh=$((dt / 3600))
+        printf '%d:%02d:%02d' $dh $dm $ds
+    fi
+}
+
+tmr=$(timer)
+
+hadoop fs -rm -r hdfs://${HDFS_USER_DIR}/data/migratedTestData/*
+hadoop fs -rm -r hdfs://${HDFS_USER_DIR}/output
+hadoop fs -rm -r  hdfs://${HDFS_USER_DIR}/input/*.xml
+hadoop fs -copyFromLocal ~/*.xml  hdfs://${HDFS_USER_DIR}/input
+
+OUTPUT=`${TAVERNA} -inputvalue files ${FILES} -inputvalue hadoop_properties \"${HADOOP_PROPERTIES}\" -inputvalue split ${SPLIT} -inputvalue inputdir \"${INPUTDIR}\" -inputvalue outputdir \"${OUTPUTDIR}\" -inputvalue jarfile ${JARFILE} -inputvalue checksum_infile ${LOCAL_CHECKSUM_INFILE} -inputvalue validator_infile ${LOCAL_VALIDATOR_INFILE} -inputvalue fido_infile ${LOCAL_FIDO_INFILE} -inputvalue raw2nexus_infile ${LOCAL_RAW2NEXUS_INFILE}  -inputvalue convert_infile ${LOCAL_CONVERT_INFILE} -logfile logfile.log ${WORKFLOW}`
+
+echo ${OUTPUT}
+
+printf 'Elapsed time: %s\n' $(timer $tmr)
+

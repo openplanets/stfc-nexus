@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tool xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://scape-project.eu/tool tool-1.1_draft.xsd" xmlns="http://scape-project.eu/tool" xmlns:xlink="http://www.w3.org/1999/xlink" name="FFMpeg" version="0.10" homepage="http://ffmpeg.org/" schemaVersion="1.1">
+    <installation>
+        <!-- from attribute @operatingSystemName or @otherOperatingSystemName we can generate a URI like "http://purl.org/DP/components#Debian" -->
+        <dependencies operatingSystemName="Redhat">
+            <!--<packageManagerConfig type="Dpkg">ffmpeg, tomcat6</packageManagerConfig>-->
+           <!-- <packageManager type="rpm">
+                <config>ffmpeg, tomcat6</config>
+                <source>deb http://scape.keep.pt/apt stable main</source>
+            </packageManager>-->
+        </dependencies>
+    </installation>
+    <operations>
+        <operation name="convert">
+            <description>converts a NeXus format file to xml</description>
+         <command>./nxconvert -d ${input} ${output}</command>
+            <inputs>
+                <input name="input" required="true">
+                    <format registryName="mimetype">application/nxs</format>
+                    <description>URL reference to nexus file</description>
+                </input>
+            </inputs>
+            <outputs>
+            <output name="output">
+		<format registryName="mimetype">application/xml</format>
+	<description>URL reference to an xml format nexus file</description>
+            </output>
+		<stdout>
+		</stdout>
+</outputs>
+        </operation>
+    </operations>
+</tool>
