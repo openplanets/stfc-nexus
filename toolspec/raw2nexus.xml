@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tool xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://scape-project.eu/tool tool-1.1_draft.xsd" xmlns="http://scape-project.eu/tool" xmlns:xlink="http://www.w3.org/1999/xlink" name="FFMpeg" version="0.10" homepage="http://ffmpeg.org/" schemaVersion="1.1">
+
+<license name="GPL-3.0">
+</license>
+
     <installation>
-        <!-- from attribute @operatingSystemName or @otherOperatingSystemName we can generate a URI like "http://purl.org/DP/components#Debian" -->
-        <dependencies operatingSystemName="Redhat">
-        </dependencies>
     </installation>
     <operations>
         <operation name="raw2nexus">
@@ -19,7 +20,7 @@
                      <format registryName="mimetype">plain/text</format>
                      <description>URL reference to input file</description>
 		</input>
-		 <input name="metadata2" required="false">
+<!--		 <input name="metadata2" required="false">
 		 	<format registryName="mimetype">plain/text</format>
 		        <description>URL reference to input file</description>
 		 </input>
@@ -30,19 +31,20 @@
                 <input name="metadata5" required="false">
                          <format registryName="mimetype">plain/text</format>
                          <description>URL reference to input file</description>
-                </input>
+                </input>-->
 
 
             </inputs>
             <outputs>
+            <stdout>
+                                      <description>Output stream</description>
+                                                      </stdout>
+
                 <output name="output" required="false">
                     <format registryName="mimetype">application/nexus"</format>
                     <description>URL reference to output file</description>
                     <extension>nxs</extension>
                 </output>
-                <stdout>
-                          <description>Output stream</description>
-                </stdout>
 
             </outputs>
         </operation>
