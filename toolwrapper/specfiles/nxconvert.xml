@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tool xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://scape-project.eu/tool tool-1.1_draft.xsd" xmlns="http://scape-project.eu/tool" xmlns:xlink="http://www.w3.org/1999/xlink" name="convert" version="0.0.1" homepage="" schemaVersion="1.1">
+ <license name="LGPL-3.0">
+        </license>
+
+
+    <installation>
+    </installation>
+    <operations>
+        <operation name="nxconvert">
+            <description>converts a NeXus format file to xml</description>
+         <command>/usr/share/nxconvert/nxcnvert -d ${input} ${output}</command>
+            <inputs>
+                <input name="input" required="true">
+                    <format registryName="mimetype">application/nxs</format>
+                    <description>URL reference to nexus file</description>
+                </input>
+            </inputs>
+            <outputs>
+                <stdout>
+                </stdout> 
+                <output name="output" required="true" >
+		<format registryName="mimetype">application/xml</format>
+	<description>URL reference to an xml format nexus file</description>
+            </output>
+</outputs>
+        </operation>
+    </operations>
+</tool>

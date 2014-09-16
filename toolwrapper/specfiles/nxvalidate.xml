@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tool xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://scape-project.eu/tool tool-1.1_draft.xsd" xmlns="http://scape-project.eu/tool" xmlns:xlink="http://www.w3.org/1999/xlink" name="validate" version="0.0.1" homepage="http://www.probatron.org/" schemaVersion="1.1">
+
+<license name="AGPL-3.0">
+        </license>
+    
+<installation>
+    </installation>
+    <operations>
+        <operation name="nxvalidate">
+            <description>Validates a NeXus format file in xml format</description>
+         <command>java -jar /usr/share/nxvalidate/probatron.jar ${input}  /usr/share/nxvalidate/nexusSchematron.sch</command>
+ 
+	 
+            <inputs>
+                <input name="input" required="true">
+                    <format registryName="mimetype">application/xml</format>
+                    <description>URL reference to extracted metadata file</description>
+                </input>
+
+            </inputs>
+            <outputs>
+		<stdout>
+                </stdout>
+</outputs>
+        </operation>
+    </operations>
+</tool>

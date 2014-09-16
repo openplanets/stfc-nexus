@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tool xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://scape-project.eu/tool tool-1.1_draft.xsd" xmlns="http://scape-project.eu/tool" xmlns:xlink="http://www.w3.org/1999/xlink" name="raw2nexus" version="0.0.1" homepage="http://www.mantidproject.org/" schemaVersion="1.1">
+	 <license name="GPL-3.0">
+        </license>
+
+
+    <installation>
+    </installation>
+    <operations>
+  <operation name="raw2nexus">
+            <description>Converts raw experiment data to NeXus format</description>
+         <command>/usr/share/raw2nexus/raw2nexuss ${input} ${output}</command>
+
+            <inputs>
+                <input name="input" required="true">
+                    <format registryName="mimetype">application/raw</format>
+                    <description>URL reference to input file</description>
+                </input>
+
+            </inputs>
+            <outputs>
+ <stdout>
+                          <description>Output stream</description>
+                </stdout>
+
+                <output name="output" required="true">
+                    <format registryName="mimetype">application/nexus"</format>
+                    <description>URL reference to output file</description>
+                    <extension>nxs</extension>
+                </output>
+
+            </outputs>
+        </operation>
+
+    </operations>
+</tool>
